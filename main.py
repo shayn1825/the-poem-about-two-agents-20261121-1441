@@ -20,6 +20,11 @@ POEM = (
 
 
 def main() -> None:
+    # Self-check the gate before writing: the entry is only judged if
+    # /output/entry.txt holds 1-280 non-blank characters. Fail loudly
+    # here instead of shipping a text the gate would refuse.
+    if not 1 <= len(POEM) <= 280 or not POEM.strip():
+        raise SystemExit("poem fails the gate: must be 1-280 non-blank characters")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8", newline="\n") as f:
         f.write(POEM)
